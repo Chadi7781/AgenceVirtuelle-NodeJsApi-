@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./UserSchema");
-const VisiteSchema = new UserSchema({
+const schema = mongoose.schema;
+const VisiteSchema = new Schema({
   idClient: {
     type: Schema.Types.ObjectId,
     ref: "clients",
@@ -19,6 +19,10 @@ const VisiteSchema = new UserSchema({
   Date: {
     type: Date,
     required: true
+  },
+  etat: {
+    type: Boolean,
+    default: false
   }
 });
 module.exports = mongoose.model("visites", VisiteSchema);

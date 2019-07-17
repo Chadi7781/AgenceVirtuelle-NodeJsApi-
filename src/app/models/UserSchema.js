@@ -9,39 +9,45 @@ const baseOptions = {
 };
 Schema = mongoose.Schema;
 
-const UserSchema = new Schema(
-  {
-    nom: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    prenom: {
-      required: true,
-      type: String
-    },
+const UserSchema = mongoose.model(
+  "User",
+  new mongoose.Schema(
+    {
+      nom: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      prenom: {
+        required: true,
+        type: String
+      },
 
-    email: {
-      required: true,
-      type: String
-    },
+      email: {
+        required: true,
+        type: String
+      },
 
-    motDePasse: {
-      required: true,
-      type: String
-    },
+      motDePasse: {
+        required: true,
+        type: String
+      },
 
-    adress: {
-      type: String
-    },
+      adress: {
+        type: String
+      },
 
-    tel: {
-      type: String
-    }
-  },
-  baseOptions
-).pre("save", function(next) {
-  this.motDePasse = bcrypt.hashSync(this.motDePasse, saltRounds);
-  next();
-});
-module.exports = mongoose.model("users", UserSchema);
+      tel: {
+        type: String
+      },
+
+
+    },
+    baseOptions
+  ).pre("save", function(next) {
+    this.motDePasse = bcrypt.hashSync(this.motDePasse, saltRounds);
+    next();
+  })
+);
+
+module.exports = mongoose.model("User" );

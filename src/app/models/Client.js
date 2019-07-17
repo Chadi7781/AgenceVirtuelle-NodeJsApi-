@@ -1,17 +1,24 @@
 var mongoose = require("mongoose");
-const UserSchema = require("./UserSchema");
+const User = require("./UserSchema");
 const Schema = mongoose.Schema;
-const ClientSchema = UserSchema.discriminator(
-  "Client",
-  new Schema({
-    privilege: {
-      type: String,
-      value: "client"
-    },
-    role:{
-      type: mongoose.Schema.ObjectId,
-      ref : 'role'
-    }
-  })
+const Client = User.discriminator('Client', new Schema({
+        role:{
+            required:true,
+            type: mongoose.Schema.ObjectId,
+            ref : 'roles'
+        },
+        //forgot password
+        resetPasswordToken:{
+            type : String,
+        },
+        resetPasswordExpires:{
+            type : Date
+        }
+
+
+
+
+})
 );
-module.exports = mongoose.model("Client", ClientSchema.scheme);
+
+module.exports=Client;
